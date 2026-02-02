@@ -9,7 +9,6 @@
       --bg0:#070A12;
       --bg1:#0B1020;
       --card:#0F1630;
-      --card2:#0D1430;
       --text:#EAF0FF;
       --muted:#AAB7E6;
 
@@ -45,7 +44,6 @@
       overflow-x:hidden;
     }
 
-    a{color:inherit}
     button{
       appearance:none;
       border:none;
@@ -420,13 +418,6 @@
     .tip p{margin:0; color: var(--muted); font-size:12px}
     .hr{height:1px; background: rgba(255,255,255,.08); margin:12px 0}
 
-    .sr-only{
-      position:absolute;
-      width:1px;height:1px;
-      padding:0;margin:-1px;overflow:hidden;
-      clip:rect(0,0,0,0);white-space:nowrap;border:0;
-    }
-
     /* Confetti canvas */
     #fx{
       position: fixed;
@@ -435,7 +426,7 @@
       z-index: 50;
     }
 
-    /* ===== Video Briefing (NEW) ===== */
+    /* ===== Video Briefing ===== */
     .briefing{
       padding:12px 12px;
       border-radius: var(--radius2);
@@ -482,13 +473,6 @@
       height:100%;
       border:0;
     }
-    .clipRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top: 10px;
-      align-items:center;
-    }
     .checkRow{
       display:flex;
       align-items:center;
@@ -510,7 +494,6 @@
       accent-color: #7C4DFF;
     }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       *{transition:none !important; scroll-behavior:auto !important}
     }
@@ -545,7 +528,7 @@
       <div class="panelHead">
         <h2 id="gameTitle">Game</h2>
         <div class="row">
-          <button class="btn primary" id="btnNext" title="Next card (Enter)">
+          <button class="btn primary" id="btnNext" title="Next / Continue (Enter)">
             ▶ Next <span class="kbd">Enter</span>
           </button>
           <button class="btn" id="btnSkip" title="Skip (S)">
@@ -558,13 +541,13 @@
       </div>
 
       <div class="panelBody">
-        <!-- ===== Video Briefing (NEW) ===== -->
+        <!-- ===== Video Briefing (chapters removed) ===== -->
         <div class="briefing" id="briefing" aria-label="Video briefing">
           <div class="briefHead">
-            <h3>🎬 Briefing video (watch a key bit, then quiz)</h3>
+            <h3>🎬 Briefing video (optional)</h3>
             <div class="row">
               <button class="btn ghost" id="btnHideBrief" title="Hide/show briefing">Hide</button>
-              <button class="btn good" id="btnStartQuiz" disabled title="Enable by ticking 'I've watched' (or skip)">
+              <button class="btn good" id="btnStartQuiz" disabled title="Enable by ticking 'I'm ready' (or skip)">
                 Start Quiz
               </button>
               <button class="btn" id="btnSkipBrief" title="Skip briefing and start quiz">
@@ -573,34 +556,27 @@
             </div>
           </div>
           <p class="briefMeta">
-            Pick a short clip, grab the “big idea”, then jump into the micro-round. (You can always come back.)
+            Watch a little (30–90s), grab the big idea, then hit Start Quiz. You can always come back.
           </p>
 
           <div class="videoFrame">
             <iframe
               id="yt"
-              title="Curriculum briefing video"
-              loading="lazy"
+              src="https://www.youtube.com/embed/jCm0UfZY6do?si=i0vrU16cLDeqBlJ-&rel=0"
+              title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen
+              loading="lazy"
             ></iframe>
-          </div>
-
-          <div class="clipRow" aria-label="Key clips">
-            <button class="btn primary" data-start="0"   id="clip0">▶ Intro</button>
-            <button class="btn"         data-start="30"  id="clip1">KS3 foundations</button>
-            <button class="btn"         data-start="75"  id="clip2">KS4 GCSE depth</button>
-            <button class="btn"         data-start="125" id="clip3">KS5 pathways</button>
-            <button class="btn warn"    data-start="170" id="clip4">Strands: CS vs ICT vs DL</button>
           </div>
 
           <div class="checkRow">
             <label>
               <input type="checkbox" id="watchedCheck" />
-              I’ve watched enough to try the quiz
+              I’m ready to try the quiz
             </label>
-            <span class="badge" id="briefHint">Tip: pick one clip only (30–60s). Don’t binge.</span>
+            <span class="badge" id="briefHint">Tip: don’t binge — one pass is enough.</span>
           </div>
         </div>
 
@@ -630,9 +606,7 @@
             </div>
           </div>
 
-          <div class="choices" id="choices" aria-label="Answer choices">
-            <!-- injected -->
-          </div>
+          <div class="choices" id="choices" aria-label="Answer choices"></div>
 
           <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
 
@@ -705,25 +679,25 @@
   </div>
 
   <p class="subtitle" style="margin:16px 6px 0;">
-    Accessibility: keyboard shortcuts, reduced motion support, and Focus Mode. Works offline as a single HTML file.
+    Accessibility: keyboard shortcuts, reduced motion support, Focus Mode, and learner-paced feedback (Continue).
+    Works on GitHub Pages as a single HTML file.
   </p>
 </div>
 
 <script>
 /* ===========================
-   Curriculum Card Dataset
+   Dataset
    =========================== */
-
 const STRANDS = [
-  { key:"cs",  label:"Computer Science", color:"var(--cs)" },
-  { key:"ict", label:"ICT",              color:"var(--ict)" },
-  { key:"dl",  label:"Digital Literacy", color:"var(--dl)" }
+  { key:"cs",  label:"Computer Science" },
+  { key:"ict", label:"ICT" },
+  { key:"dl",  label:"Digital Literacy" }
 ];
 
 const KEYSTAGES = [
-  { key:"ks3", label:"KS3", color:"var(--ks3)" },
-  { key:"ks4", label:"KS4", color:"var(--ks4)" },
-  { key:"ks5", label:"KS5", color:"var(--ks5)" }
+  { key:"ks3", label:"KS3" },
+  { key:"ks4", label:"KS4" },
+  { key:"ks5", label:"KS5" }
 ];
 
 const CARDS = [
@@ -762,12 +736,15 @@ const state = {
   focus: false,
   deck: [],
   idx: 0,
+
   score: 0,
   correct: 0,
-  total: 0,
+  total: 0,      // attempts (ONE per card attempt)
   streak: 0,
   bestStreak: 0,
-  locked: false
+
+  locked: false, // prevents multiple scoring on same card
+  awaitingContinue: false // feedback shown; must continue
 };
 
 /* ===========================
@@ -792,62 +769,33 @@ const btnNext  = el("btnNext");
 const btnSkip  = el("btnSkip");
 const btnReset = el("btnReset");
 const btnFocus = el("btnFocus");
-
 const modes = Array.from(document.querySelectorAll(".mode"));
 
 /* ===========================
-   Video briefing (NEW)
+   Video controls (no chapters)
    =========================== */
-const VIDEO_ID = "jCm0UfZY6do"; // from https://youtu.be/jCm0UfZY6do
-const yt = el("yt");
 const briefing = el("briefing");
 const btnStartQuiz = el("btnStartQuiz");
 const btnSkipBrief = el("btnSkipBrief");
 const btnHideBrief = el("btnHideBrief");
 const watchedCheck = el("watchedCheck");
 
-// Use privacy-enhanced embed
-function setVideoStart(seconds){
-  const start = Math.max(0, Number(seconds || 0));
-  yt.src = `https://www.youtube-nocookie.com/embed/${VIDEO_ID}?start=${start}&rel=0&modestbranding=1`;
-}
-
-// initial load at start
-setVideoStart(0);
-
-// clip buttons
-document.querySelectorAll("[data-start]").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    const s = btn.getAttribute("data-start");
-    setVideoStart(s);
-    // soft nudge: focus the iframe region
-    briefing.scrollIntoView({behavior:"smooth", block:"start"});
-  });
-});
-
 watchedCheck.addEventListener("change", ()=>{
   btnStartQuiz.disabled = !watchedCheck.checked;
 });
-
 btnSkipBrief.addEventListener("click", ()=>{
-  // allow immediate start without checkbox
   btnStartQuiz.disabled = false;
   watchedCheck.checked = true;
   scrollToQuiz();
 });
-
-btnStartQuiz.addEventListener("click", ()=>{
-  scrollToQuiz();
-});
+btnStartQuiz.addEventListener("click", scrollToQuiz);
 
 let briefingHidden = false;
 btnHideBrief.addEventListener("click", ()=>{
   briefingHidden = !briefingHidden;
   if(briefingHidden){
-    // collapse: keep header controls visible by shrinking to just the head
-    // simplest: toggle display of everything except the head
     Array.from(briefing.children).forEach((child, idx)=>{
-      if(idx === 0) return; // keep header row
+      if(idx === 0) return; // keep head row
       child.style.display = "none";
     });
     btnHideBrief.textContent = "Show";
@@ -861,7 +809,6 @@ btnHideBrief.addEventListener("click", ()=>{
 });
 
 function scrollToQuiz(){
-  // scroll to the prompt card
   const target = document.querySelector(".prompt");
   if(target){
     target.scrollIntoView({behavior:"smooth", block:"start"});
@@ -879,33 +826,39 @@ function shuffle(arr){
   }
   return a;
 }
-
 function pct(n,d){ return d===0 ? 0 : Math.round((n/d)*100); }
 
-function tagHTML(kind, key){
-  const map = { cs:"cs", ict:"ict", dl:"dl", ks3:"ks3", ks4:"ks4", ks5:"ks5" };
-  const klass = map[key] || "";
-  const label = (
+function tagHTML(key){
+  const klass = key;
+  const label =
     STRANDS.find(s=>s.key===key)?.label ||
     KEYSTAGES.find(k=>k.key===key)?.label ||
-    key
-  );
+    key;
   return `<span class="tag ${klass}"><strong>${label}</strong></span>`;
 }
 
-function setFeedback(type, html){
+function showFeedback(type, html){
+  state.awaitingContinue = true;
   feedback.className = `feedback ${type}`;
-  feedback.innerHTML = html;
+  feedback.innerHTML = `
+    ${html}
+    <div style="margin-top:10px; display:flex; justify-content:flex-end;">
+      <button class="btn primary" id="btnContinue" title="Continue (Enter)">Continue <span class="kbd">Enter</span></button>
+    </div>
+  `;
   feedback.style.display = "block";
+  const c = document.getElementById("btnContinue");
+  if(c) c.addEventListener("click", ()=> advanceCard(false));
 }
 
-function clearFeedback(){
+function hideFeedback(){
   feedback.style.display = "none";
   feedback.innerHTML = "";
+  state.awaitingContinue = false;
 }
 
 /* ===========================
-   Build a short round deck
+   Deck
    =========================== */
 function buildDeck(){
   return shuffle(CARDS).slice(0, ROUND_SIZE);
@@ -953,13 +906,9 @@ function renderChoices(card){
   const buttons = [];
 
   if(state.mode === "strand"){
-    STRANDS.forEach((s, i)=>{
-      buttons.push({ label: s.label, key: s.key, hotkey: String(i+1), kind: "strand" });
-    });
+    STRANDS.forEach((s, i)=> buttons.push({ label:s.label, key:s.key, hotkey:String(i+1), kind:"strand" }));
   } else if(state.mode === "keystage"){
-    KEYSTAGES.forEach((k, i)=>{
-      buttons.push({ label: k.label, key: k.key, hotkey: String(i+1), kind: "ks" });
-    });
+    KEYSTAGES.forEach((k, i)=> buttons.push({ label:k.label, key:k.key, hotkey:String(i+1), kind:"ks" }));
   } else {
     buttons.push(
       { label:"Pick Strand: CS",  key:"cs",  hotkey:"1", kind:"strand" },
@@ -979,7 +928,7 @@ function renderChoices(card){
     btn.dataset.kind = b.kind;
     btn.dataset.hotkey = b.hotkey;
 
-    const leftTag = (b.kind === "strand") ? tagHTML("strand", b.key) : tagHTML("ks", b.key);
+    const leftTag = (b.kind === "strand") ? tagHTML(b.key) : tagHTML(b.key);
 
     btn.innerHTML = `
       ${leftTag}
@@ -993,21 +942,12 @@ function renderChoices(card){
 }
 
 function renderCard(){
-  clearFeedback();
   state.locked = false;
+  hideFeedback();
 
   if(state.idx >= state.deck.length){
     promptText.textContent = "Round complete 🎉";
-    promptMini.innerHTML = `
-      You finished a short round. Reset for a fresh mix, or switch mode for variety.
-      <br><br>
-      <span class="tag cs"><strong>CS</strong></span>
-      <span class="tag ict"><strong>ICT</strong></span>
-      <span class="tag dl"><strong>DL</strong></span>
-      <span class="tag ks3"><strong>KS3</strong></span>
-      <span class="tag ks4"><strong>KS4</strong></span>
-      <span class="tag ks5"><strong>KS5</strong></span>
-    `;
+    promptMini.innerHTML = `You finished a short round. Reset for a fresh mix, or switch mode for variety.`;
     choicesWrap.innerHTML = `
       <button class="choice" type="button" id="playAgain" style="grid-column:1/-1; justify-content:center;">
         <span style="font-weight:800;">Play another short round</span>
@@ -1039,14 +979,28 @@ function renderCard(){
    =========================== */
 let bossPicked = { strand:null, ks:null };
 
-function resetBossPick(){
-  bossPicked = { strand:null, ks:null };
-}
+function resetBossPick(){ bossPicked = { strand:null, ks:null }; }
 
 function bossPickText(){
-  const s = bossPicked.strand ? tagHTML("strand", bossPicked.strand) : `<span class="tag"><strong>Strand?</strong></span>`;
-  const k = bossPicked.ks ? tagHTML("ks", bossPicked.ks) : `<span class="tag"><strong>Key Stage?</strong></span>`;
+  const s = bossPicked.strand ? tagHTML(bossPicked.strand) : `<span class="tag"><strong>Strand?</strong></span>`;
+  const k = bossPicked.ks ? tagHTML(bossPicked.ks) : `<span class="tag"><strong>Key Stage?</strong></span>`;
   return `Your picks: ${s} ${k}`;
+}
+
+/* ===========================
+   Navigation helpers
+   =========================== */
+function advanceCard(countAsAttempt){
+  // If feedback is showing, Continue should not count as a new attempt
+  if(countAsAttempt){
+    // Count ONE attempt per card when user skips/moves on without answering.
+    state.total++;
+    state.streak = 0;
+  }
+
+  state.idx++;
+  if(state.mode === "both") resetBossPick();
+  renderCard();
 }
 
 /* ===========================
@@ -1056,20 +1010,27 @@ function onAnswer(kind, key){
   if(state.locked) return;
 
   const card = state.deck[state.idx];
-  state.total++;
 
   if(state.mode === "strand"){
     checkSingle(kind, key, "strand", card.strand);
   } else if(state.mode === "keystage"){
     checkSingle(kind, key, "ks", card.ks);
   } else {
+    // Boss: two picks, but ONE attempt counted when BOTH chosen.
     if(kind === "strand") bossPicked.strand = key;
     if(kind === "ks") bossPicked.ks = key;
 
-    setFeedback("good", `<span class="big">Boss picks updated</span><div class="small">${bossPickText()}</div>`);
+    // Provide gentle in-progress feedback without counting an attempt.
+    showFeedback("good",
+      `<span class="big">Boss picks updated</span>
+       <div class="small">${bossPickText()}<br>Pick the missing one to submit.</div>`
+    );
 
     if(bossPicked.strand && bossPicked.ks){
+      // Now evaluate ONCE.
+      state.total++; // ✅ attempts per card (not per click)
       state.locked = true;
+
       const ok = (bossPicked.strand === card.strand) && (bossPicked.ks === card.ks);
 
       if(ok){
@@ -1077,10 +1038,10 @@ function onAnswer(kind, key){
         state.score += 15;
         state.streak++;
         state.bestStreak = Math.max(state.bestStreak, state.streak);
-        setFeedback("good",
+        showFeedback("good",
           `<span class="big">Correct ✅</span>
            <div class="small">
-             ${tagHTML("strand", card.strand)} ${tagHTML("ks", card.ks)}<br>
+             Correct mapping: ${tagHTML(card.strand)} ${tagHTML(card.ks)}<br>
              ${card.why}
            </div>`
         );
@@ -1088,35 +1049,39 @@ function onAnswer(kind, key){
       } else {
         state.score = Math.max(0, state.score - 2);
         state.streak = 0;
-        setFeedback("bad",
+        showFeedback("bad",
           `<span class="big">Not quite ❌</span>
            <div class="small">
-             Correct mapping: ${tagHTML("strand", card.strand)} ${tagHTML("ks", card.ks)}<br>
+             Correct mapping: ${tagHTML(card.strand)} ${tagHTML(card.ks)}<br>
              ${card.why}
            </div>`
         );
       }
 
       updateStats();
-
-      setTimeout(()=>{
-        state.idx++;
-        resetBossPick();
-        renderCard();
-      }, state.focus ? 450 : 900);
+    } else {
+      // still choosing; don't lock, don't increment attempts
+      state.locked = false;
+      updateStats();
     }
   }
 }
 
 function checkSingle(kind, key, expectedKind, correctKey){
   if(kind !== expectedKind){
-    setFeedback("bad", `<span class="big">Try the matching button set</span><div class="small">You clicked a ${kind === "strand" ? "strand" : "key stage"} choice in this mode.</div>`);
+    // Don't count as an attempt; it's a mode-mismatch click.
+    showFeedback("bad",
+      `<span class="big">Try the matching button set</span>
+       <div class="small">You clicked a ${kind === "strand" ? "strand" : "key stage"} choice in this mode.</div>`
+    );
     updateStats();
     return;
   }
 
-  state.locked = true;
   const card = state.deck[state.idx];
+
+  state.total++; // ✅ attempts per card
+  state.locked = true;
 
   const ok = (key === correctKey);
   if(ok){
@@ -1125,10 +1090,10 @@ function checkSingle(kind, key, expectedKind, correctKey){
     state.streak++;
     state.bestStreak = Math.max(state.bestStreak, state.streak);
 
-    setFeedback("good",
+    showFeedback("good",
       `<span class="big">Correct ✅</span>
        <div class="small">
-         ${state.mode === "strand" ? tagHTML("strand", card.strand) : tagHTML("ks", card.ks)}<br>
+         Correct answer: ${state.mode === "strand" ? tagHTML(card.strand) : tagHTML(card.ks)}<br>
          ${card.why}
        </div>`
     );
@@ -1137,11 +1102,9 @@ function checkSingle(kind, key, expectedKind, correctKey){
     state.score = Math.max(0, state.score - 1);
     state.streak = 0;
 
-    const correctTag = (state.mode === "strand")
-      ? tagHTML("strand", card.strand)
-      : tagHTML("ks", card.ks);
+    const correctTag = (state.mode === "strand") ? tagHTML(card.strand) : tagHTML(card.ks);
 
-    setFeedback("bad",
+    showFeedback("bad",
       `<span class="big">Not quite ❌</span>
        <div class="small">
          Correct answer: ${correctTag}<br>
@@ -1151,40 +1114,36 @@ function checkSingle(kind, key, expectedKind, correctKey){
   }
 
   updateStats();
-
-  setTimeout(()=>{
-    state.idx++;
-    renderCard();
-  }, state.focus ? 400 : 850);
 }
 
 /* ===========================
    Controls
    =========================== */
 btnNext.addEventListener("click", ()=>{
+  // Next doubles as Continue if feedback is showing.
+  if(state.awaitingContinue){
+    advanceCard(false);
+    return;
+  }
+  // Otherwise, treat as "Move on" (counts attempt)
   if(state.idx >= state.deck.length) return;
-  state.total++;
-  state.streak = 0;
-  setFeedback("bad", `<span class="big">Moved on</span><div class="small">No worries — speed beats perfection here.</div>`);
+  showFeedback("bad",
+    `<span class="big">Moved on</span><div class="small">No worries — speed beats perfection here.</div>`
+  );
   updateStats();
-  setTimeout(()=>{
-    state.idx++;
-    if(state.mode === "both") resetBossPick();
-    renderCard();
-  }, state.focus ? 300 : 650);
+  // Do not auto-advance; let Next/Enter again continue, or click Continue.
 });
 
 btnSkip.addEventListener("click", ()=>{
+  if(state.awaitingContinue){
+    advanceCard(false);
+    return;
+  }
   if(state.idx >= state.deck.length) return;
-  state.total++;
-  state.streak = 0;
-  setFeedback("bad", `<span class="big">Skipped</span><div class="small">You can come back next round.</div>`);
+  showFeedback("bad",
+    `<span class="big">Skipped</span><div class="small">You can come back next round.</div>`
+  );
   updateStats();
-  setTimeout(()=>{
-    state.idx++;
-    if(state.mode === "both") resetBossPick();
-    renderCard();
-  }, state.focus ? 250 : 550);
 });
 
 btnReset.addEventListener("click", ()=> resetRound(true));
@@ -1206,26 +1165,38 @@ btnFocus.addEventListener("click", ()=>{
 
 modes.forEach(b=>{
   b.addEventListener("click", ()=>{
+    if(state.awaitingContinue) hideFeedback();
     state.mode = b.dataset.mode;
     resetBossPick();
     renderMode();
   });
 });
 
+// keyboard shortcuts
 document.addEventListener("keydown", (e)=>{
+  // Enter = Next / Continue
   if(e.key === "Enter"){
     e.preventDefault();
     btnNext.click();
+    // If Next showed feedback (Moved on), hitting Enter again will advance via awaitingContinue.
+    if(state.awaitingContinue && e.repeat === false){
+      // allow second press to advance; handled by btnNext listener
+    }
     return;
   }
   if(e.key.toLowerCase() === "s"){
     e.preventDefault();
+    // Skip shows feedback; press S again to continue if desired
     btnSkip.click();
     return;
   }
 
+  // number shortcuts
   const k = e.key;
   if(!/^[1-6]$/.test(k)) return;
+
+  // If feedback is up, don't allow answers
+  if(state.awaitingContinue) return;
 
   const btn = Array.from(document.querySelectorAll(".choice"))
     .find(x => x.dataset.hotkey === k);
@@ -1242,6 +1213,7 @@ function resetRound(keepScore){
   state.deck = buildDeck();
   state.idx = 0;
   state.locked = false;
+  state.awaitingContinue = false;
   resetBossPick();
 
   if(!keepScore){
