@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SCITT Module 1 — Assignment Worksheet (Questioning)</title>
+  <meta name="description" content="A GitHub Pages–ready worksheet to plan and track progress on a 3-part SCITT assignment (Questioning). Checklists, progress tracking, and focus tools."/>
+  <style>
+    :root{
+      --bg:#0b1020; --panel:#101a35; --panel2:#0f1730;
+      --text:#e9eefc; --muted:#aab6e6;
+      --accent:#7c5cff; --accent2:#2ee6a6;
+      --warn:#ffcc66; --bad:#ff6b6b; --good:#50fa7b;
+      --line:rgba(255,255,255,.10); --shadow: 0 16px 40px rgba(0,0,0,.35);
+      --r:18px; --r2:14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 0%, rgba(124,92,255,.25), transparent 55%),
+        radial-gradient(1000px 700px at 85% 10%, rgba(46,230,166,.18), transparent 55%),
+        radial-gradient(900px 600px at 40% 90%, rgba(255,204,102,.12), transparent 55%),
+        var(--bg);
+    }
+    a{color:var(--accent2); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: rgba(11,16,32,.6);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar{max-width:1200px; margin:0 auto; padding:14px 16px; display:flex; gap:12px; justify-content:space-between; align-items:center; flex-wrap:wrap;}
+    .brand{display:flex; gap:12px; align-items:center;}
+    .logo{width:38px; height:38px; border-radius:12px; display:grid; place-items:center; font-weight:900; color:#081028;
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(46,230,166,.85));
+      box-shadow: 0 10px 30px rgba(124,92,255,.25);
+    }
+    .brand h1{margin:0; font-size:16px; line-height:1.1}
+    .brand p{margin:2px 0 0; color:var(--muted); font-size:12px; line-height:1.35}
+    .controls{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+
+    .chip{display:inline-flex; gap:8px; align-items:center; padding:9px 10px; border:1px solid var(--line); background:rgba(16,26,53,.6); border-radius:999px; font-size:12px; color:var(--muted);}
+    .score{font-family:var(--mono); font-size:12px; color: rgba(255,255,255,.85); padding:6px 10px; border-radius: 999px; border:1px solid var(--line); background: rgba(0,0,0,.16);}
+
+    .btn{
+      appearance:none; border:none; cursor:pointer;
+      padding:10px 12px; border-radius:12px;
+      background:rgba(124,92,255,.18); border:1px solid rgba(124,92,255,.35);
+      color:var(--text); font-weight:800; box-shadow: 0 10px 20px rgba(0,0,0,.18);
+      transition: transform .06s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover{background:rgba(124,92,255,.24); border-color:rgba(124,92,255,.55)}
+    .btn:active{transform:translateY(1px)}
+    .btn.secondary{background:rgba(46,230,166,.14); border-color:rgba(46,230,166,.35);}
+    .btn.warn{background:rgba(255,204,102,.14); border-color:rgba(255,204,102,.35);}
+    .btn.ghost{background:transparent; border-color:var(--line); color:var(--muted); box-shadow:none;}
+
+    .layout{max-width:1200px; margin:0 auto; display:grid; grid-template-columns: 330px 1fr; gap:16px; padding:16px;}
+    @media (max-width: 980px){.layout{grid-template-columns:1fr;}}
+
+    .panel{background: linear-gradient(180deg, rgba(16,26,53,.78), rgba(15,23,48,.72)); border:1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow);}
+    .nav{padding:14px; position:sticky; top:74px; height: calc(100dvh - 92px); overflow:auto;}
+    @media (max-width: 980px){.nav{position:relative; top:0; height:auto;}}
+
+    .nav h2{margin:4px 0 10px; font-size:14px; color:var(--muted); text-transform:uppercase; letter-spacing:.3px;}
+    .nav a.item{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 12px; border-radius:14px; color:var(--text);
+      border:1px solid transparent; margin-bottom:8px; background: rgba(255,255,255,.03);
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .nav a.item:hover{background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.08);}
+    .nav a.item.active{background: rgba(124,92,255,.18); border-color: rgba(124,92,255,.42);}
+    .badge{font-size:11px; color: rgba(255,255,255,.85); background: rgba(0,0,0,.20); border: 1px solid rgba(255,255,255,.10); padding:3px 8px; border-radius:999px;}
+
+    .main{padding:16px;}
+    section{padding:16px; border:1px solid var(--line); border-radius: var(--r); background: rgba(255,255,255,.03); margin-bottom:16px;}
+    section h2{margin:0 0 10px; font-size:18px;}
+    .sub{margin:0 0 14px; color:var(--muted); font-size:13px; line-height:1.45;}
+
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+    @media (max-width:780px){.grid2{grid-template-columns:1fr;}}
+
+    .card{border:1px solid var(--line); border-radius: var(--r2); background: rgba(16,26,53,.35); padding:12px;}
+    .card h3{margin:0 0 8px; font-size:14px;}
+    .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.45;}
+
+    .notice{border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); padding:10px 12px; border-radius: 14px; color: var(--muted); font-size:13px; line-height:1.45;}
+    .notice b{color:var(--text)}
+    .warnbox{border-color: rgba(255,204,102,.35); background: rgba(255,204,102,.10); color: rgba(255,244,219,.95);}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .pill{padding:6px 10px; border-radius:999px; border:1px solid var(--line); font-size:12px; color:var(--muted); background: rgba(0,0,0,.12);}
+
+    .progress{height:10px; border-radius:999px; border:1px solid var(--line); background: rgba(0,0,0,.18); overflow:hidden; margin-bottom:16px;}
+    .bar{height:100%; width:0%; background: linear-gradient(90deg, rgba(124,92,255,.9), rgba(46,230,166,.9)); transition: width .35s ease;}
+
+    .input, textarea{
+      width:100%; background: rgba(0,0,0,.18);
+      border:1px solid var(--line); border-radius: 14px;
+      padding:10px 12px; color: var(--text); outline:none; font-size:14px;
+    }
+    textarea{min-height:92px; resize:vertical;}
+    .mini{font-size:12px; color: var(--muted); margin-top:6px; line-height:1.4;}
+    .hr{height:1px; background: var(--line); margin:12px 0;}
+
+    .timer{font-family:var(--mono); padding:8px 10px; border-radius: 14px; border:1px solid var(--line); background: rgba(0,0,0,.16); color: rgba(255,255,255,.88); font-size:12px;}
+
+    .task{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px; border-radius:14px;
+      border:1px solid var(--line); background: rgba(0,0,0,.12);
+      margin-bottom:8px;
+      transition: background .2s ease, border-color .2s ease, transform .06s ease;
+    }
+    .task:hover{background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.16);}
+    .task:active{transform: translateY(1px);}
+    .task input{margin-top:3px;}
+
+    .taskTitle{font-weight:900; font-size:13px; color: rgba(255,255,255,.92); margin-bottom:2px;}
+    .taskMeta{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;}
+    .tag{
+      font-size:11px; padding:3px 8px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.85);
+    }
+    .tag.write{border-color: rgba(124,92,255,.40); background: rgba(124,92,255,.10);}
+    .tag.reuse{border-color: rgba(46,230,166,.35); background: rgba(46,230,166,.08);}
+    .tag.lookup{border-color: rgba(255,204,102,.35); background: rgba(255,204,102,.08);}
+    .tag.check{border-color: rgba(170,182,230,.28); background: rgba(170,182,230,.06);}
+    .tag.evidence{border-color: rgba(255,107,107,.35); background: rgba(255,107,107,.08);}
+
+    .task.done{border-color: rgba(80,250,123,.35); background: rgba(80,250,123,.07);}
+    .taskHighlight{outline:2px solid rgba(46,230,166,.65); outline-offset:2px; border-radius:14px;}
+    .hidden{display:none !important;}
+
+    /* Slide mode */
+    .slideNav{
+      display:flex; justify-content:space-between; align-items:center;
+      gap:12px; margin: 0 0 14px 0;
+      padding:10px 12px; border:1px solid var(--line);
+      border-radius:14px; background: rgba(0,0,0,.12);
+    }
+    .slideNav .btn{box-shadow:none}
+    section.slideHidden{display:none !important;}
+    .slideTitle{display:flex; flex-direction:column; gap:2px; align-items:center; text-align:center;}
+    .slideTitle b{font-size:12px}
+    .slideTitle span{font-size:12px;color:var(--muted)}
+
+    .kbd{font-family:var(--mono); font-size:11px; padding:2px 6px; border-radius:8px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.18); color: rgba(255,255,255,.85);}
+
+    @media print{
+      header, .nav, #slideNav { display:none !important; }
+      .layout{grid-template-columns:1fr; padding:0;}
+      .panel{box-shadow:none; border:none;}
+      section{break-inside:avoid;}
+      body{background:#fff; color:#000;}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">M1</div>
+      <div>
+        <h1>SCITT Module 1 — Assignment Worksheet (Pedagogy: Questioning)</h1>
+        <p>3-part body. Track what’s done, what to look up, and the next smallest step. Progress saves in your browser.</p>
+      </div>
+    </div>
+    <div class="controls">
+      <span class="chip">Overall <span class="score" id="progressLabel">0 / 0</span></span>
+      <span class="chip">Focus <span class="score" id="nextTaskLabel">—</span></span>
+      <button class="btn ghost" id="toggleSlideBtn" type="button">Slide mode: On</button>
+      <button class="btn secondary" id="nextTaskBtn" type="button">Next task</button>
+      <button class="btn ghost" id="exportBtn" type="button">Export</button>
+      <button class="btn ghost" id="importBtn" type="button">Import</button>
+      <button class="btn warn" id="resetBtn" type="button">Reset</button>
+      <button class="btn ghost" id="printBtn" type="button">Print</button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="panel nav">
+    <h2>Route</h2>
+    <a class="item" href="#overview"><span>0) Overview</span><span class="badge" id="b-overview">0%</span></a>
+    <a class="item" href="#part1"><span>1) Part 1 — Literature</span><span class="badge" id="b-part1">0%</span></a>
+    <a class="item" href="#part2"><span>2) Part 2 — Reflective analysis</span><span class="badge" id="b-part2">0%</span></a>
+    <a class="item" href="#part3"><span>3) Part 3 — Synthesis + CPD</span><span class="badge" id="b-part3">0%</span></a>
+    <a class="item" href="#evidence"><span>Evidence pack</span><span class="badge" id="b-evidence">0%</span></a>
+    <a class="item" href="#reuse"><span>Reuse map</span><span class="badge" id="b-reuse">0%</span></a>
+    <a class="item" href="#qc"><span>Final checks</span><span class="badge" id="b-qc">0%</span></a>
+    <a class="item" href="#parking"><span>Parking lot</span><span class="badge" id="b-parking">—</span></a>
+
+    <div class="hr"></div>
+
+    <div class="card">
+      <h3>Filters</h3>
+      <p>Show only what you want to work on right now.</p>
+      <div class="row" style="margin-top:10px;">
+        <button class="btn ghost filterBtn" data-view="all" type="button">All</button>
+        <button class="btn ghost filterBtn" data-view="remaining" type="button">Remaining</button>
+        <button class="btn ghost filterBtn" data-view="done" type="button">Done</button>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <label class="chip" style="cursor:pointer;"><input class="typeToggle" type="checkbox" data-type="write" checked/> Write</label>
+        <label class="chip" style="cursor:pointer;"><input class="typeToggle" type="checkbox" data-type="reuse" checked/> Reuse</label>
+        <label class="chip" style="cursor:pointer;"><input class="typeToggle" type="checkbox" data-type="lookup" checked/> Look up</label>
+        <label class="chip" style="cursor:pointer;"><input class="typeToggle" type="checkbox" data-type="evidence" checked/> Evidence</label>
+        <label class="chip" style="cursor:pointer;"><input class="typeToggle" type="checkbox" data-type="check" checked/> Check</label>
+      </div>
+      <div class="mini">Tip: try “Remaining + Write” to reduce noise.</div>
+    </div>
+
+    <div class="card" style="margin-top:12px;">
+      <h3>Focus sprint</h3>
+      <p>Time-box one small step. Switch task only when the timer ends.</p>
+      <div class="row" style="margin-top:8px;">
+        <input class="input" id="timerMins" type="number" min="5" max="60" value="25" style="max-width:90px" aria-label="Minutes"/>
+        <button class="btn secondary" id="timerStart" type="button">Start</button>
+        <button class="btn ghost" id="timerPause" type="button">Pause</button>
+        <button class="btn ghost" id="timerReset" type="button">Reset</button>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <span class="timer" id="timerOut">25:00</span>
+        <span class="pill" id="timerHint">Pick a single checkbox and finish it.</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px;">
+      <h3>Export / import</h3>
+      <p>Move progress between devices (copy/paste JSON).</p>
+      <textarea class="input" id="transferBox" placeholder="Click Export to generate JSON…"></textarea>
+      <div class="mini">Export writes JSON here. Import reads from here.</div>
+    </div>
+  </aside>
+
+  <main class="panel main">
+    <div class="progress"><div class="bar" id="progressBar"></div></div>
+
+    <div id="slideNav" class="slideNav" aria-label="Slide navigation">
+      <button id="prevSlide" class="btn ghost" type="button">◀ Back</button>
+      <div class="slideTitle">
+        <b id="slideCount">Slide 1 / 8</b>
+        <span id="slideHint">One section at a time (ADHD-friendly).</span>
+      </div>
+      <button id="nextSlide" class="btn ghost" type="button">Next ▶</button>
+    </div>
+
+    <!-- 0) OVERVIEW -->
+    <section id="overview" data-section="overview">
+      <h2>0) Overview</h2>
+      <p class="sub">Built from your augmented plan. Keep the body strictly in 3 parts: Part 1 (literature), Part 2 (single enquiry episode), Part 3 (synthesis + CPD).</p>
+
+      <div class="notice warnbox">
+        <b>Rule of thumb for top marks:</b> one tight enquiry episode + sustained literature links throughout Parts 1–3 + explicit inclusion/adaptation + clear limitations/implications.
+      </div>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div class="card">
+          <h3>Word budget (optional)</h3>
+          <p>Enter your word count and current section totals to keep proportions on track.</p>
+          <div class="row" style="margin-top:10px;">
+            <input class="input" id="totalWords" type="number" min="500" placeholder="Total words (e.g., 2000)" style="max-width:200px"/>
+            <button class="btn ghost" id="calcWords" type="button">Calculate</button>
+          </div>
+          <div class="mini" id="wordTargets">Targets: Part 1 30–35%, Part 2 45–55%, Part 3 15–20%.</div>
+          <div class="hr"></div>
+          <div class="row">
+            <input class="input" id="wPart1" type="number" min="0" placeholder="Current Part 1" style="max-width:170px"/>
+            <input class="input" id="wPart2" type="number" min="0" placeholder="Current Part 2" style="max-width:170px"/>
+            <input class="input" id="wPart3" type="number" min="0" placeholder="Current Part 3" style="max-width:170px"/>
+          </div>
+          <div class="mini" id="wordNow">—</div>
+        </div>
+
+        <div class="card">
+          <h3>Non‑negotiables (quick tick)</h3>
+
+          <label class="task" data-section="overview" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="ov-3parts"/>
+            <div>
+              <div class="taskTitle">Body is clearly labelled Part 1 / Part 2 / Part 3 in that order</div>
+              <div class="mini">Don’t let headings drift into a 5-part essay shape.</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="overview" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="ov-lit"/>
+            <div>
+              <div class="taskTitle">Literature is sustained: ≥1 citation per paragraph in Parts 1–3</div>
+              <div class="mini">Treat this as a hard constraint.</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="overview" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="ov-single"/>
+            <div>
+              <div class="taskTitle">Part 2 uses ONE observation → plan → implement → evidence → reflection</div>
+              <div class="mini">No catalogues of every observation.</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+          <div class="row" style="margin-top:10px;">
+            <button class="btn ghost" type="button" data-mark-section="overview">Mark section done</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1) PART 1 -->
+    <section id="part1" data-section="part1">
+      <h2>1) Part 1 — Introductory literature review (Questioning)</h2>
+      <p class="sub">Goal: build a compact evidence base for effective questioning, then end with 3–6 principles you will enact/evaluate in Part 2.</p>
+
+      <div class="notice">
+        <b>Keep your climate material:</b> but only as a <b>condition that makes questioning work</b> (pupils willing to risk uncertainty; norms around error).
+      </div>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div class="card">
+          <h3>P1.1 Define the focus</h3>
+
+          <label class="task" data-section="part1" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p1-define"/>
+            <div>
+              <div class="taskTitle">Define effective questioning as evidence-elicitation (formative assessment)</div>
+              <div class="mini">1 paragraph. Distinguish recall checks vs probing reasoning vs metacognitive prompts.</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part1" data-type="reuse">
+            <input class="taskCheck" type="checkbox" data-id="p1-reuse-teachcheck"/>
+            <div>
+              <div class="taskTitle">Reuse: “short teaching–learning–checking cycles / regular check-ins” paragraph</div>
+              <div class="mini">Edit topic sentence so it’s explicitly about questioning.</div>
+              <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+            </div>
+          </label>
+
+        </div>
+
+        <div class="card">
+          <h3>P1.2 Mechanisms + conditions</h3>
+
+          <label class="task" data-section="part1" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p1-loop"/>
+            <div>
+              <div class="taskTitle">Explain the feedback loop: questions → evidence → adapt teaching → learning improves</div>
+              <div class="mini">Add one critical note: false mastery if only confident pupils answer / surface recall.</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part1" data-type="reuse">
+            <input class="taskCheck" type="checkbox" data-id="p1-reuse-safety"/>
+            <div>
+              <div class="taskTitle">Reuse: psychological safety / reduced embarrassment → pupils answer honestly</div>
+              <div class="mini">Reframe as: “condition for questioning to reveal thinking.”</div>
+              <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part1" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="p1-tension"/>
+            <div>
+              <div class="taskTitle">Include at least one tension/limitation in the literature (when questioning fails)</div>
+              <div class="mini">Keep it short but explicit: anxiety, overload, bias, pseudo-participation.</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div class="card">
+          <h3>P1.3 Questioning for metacognition</h3>
+
+          <label class="task" data-section="part1" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p1-metadef"/>
+            <div>
+              <div class="taskTitle">Define metacognition (monitor / evaluate / strategy) and link to question types</div>
+              <div class="mini">Use realistic prompts you’ll actually use: “How confident…?”, “What makes you unsure…?”</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part1" data-type="reuse">
+            <input class="taskCheck" type="checkbox" data-id="p1-reuse-meta"/>
+            <div>
+              <div class="taskTitle">Reuse: “metacognitive talk and questioning strategies” paragraph</div>
+              <div class="mini">Keep it as “why these question prompts increase metacognitive engagement.”</div>
+              <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part1" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p1-hinge"/>
+            <div>
+              <div class="taskTitle">Introduce planned hinge questions as a high‑leverage diagnostic move</div>
+              <div class="mini">Name the misconception point you’ll target in Part 2.</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+        </div>
+
+        <div class="card">
+          <h3>P1.4 Inclusive/adaptive questioning</h3>
+
+          <label class="task" data-section="part1" data-type="reuse">
+            <input class="taskCheck" type="checkbox" data-id="p1-reuse-inclusion"/>
+            <div>
+              <div class="taskTitle">Reuse: inclusion/equity section (EAL support, dignity, discreet support)</div>
+              <div class="mini">Convert into “adaptive questioning moves” (rephrase, stems, wait time, vocab).</div>
+              <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part1" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p1-equity"/>
+            <div>
+              <div class="taskTitle">State equity stance: access to the thinking ≠ identical questions for all</div>
+              <div class="mini">Add one sentence on participation equity routines (structured selection / supportive follow-ups).</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part1" data-type="lookup">
+            <input class="taskCheck" type="checkbox" data-id="p1-sources"/>
+            <div>
+              <div class="taskTitle">Confirm 2–3 core sources for questioning + formative assessment + metacognition</div>
+              <div class="mini">Keep this lean: choose high‑signal sources you can cite repeatedly.</div>
+              <div class="taskMeta"><span class="tag lookup">Look up</span></div>
+            </div>
+          </label>
+
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h3>P1.5 End with principles for practice (bridge to Part 2)</h3>
+
+        <label class="task" data-section="part1" data-type="write">
+          <input class="taskCheck" type="checkbox" data-id="p1-principles"/>
+          <div>
+            <div class="taskTitle">Write 5 bullet “principles for practice” you will implement + evaluate</div>
+            <div class="mini">Example: hinge question, probing follow-ups, structured participation, metacognitive prompts, adaptive rephrasing.</div>
+            <div class="taskMeta"><span class="tag write">Write</span></div>
+          </div>
+        </label>
+
+        <label class="task" data-section="part1" data-type="check">
+          <input class="taskCheck" type="checkbox" data-id="p1-bridge"/>
+          <div>
+            <div class="taskTitle">Add a bridge sentence: “In Part 2 I will enact principles 1–3 and evaluate impact…”</div>
+            <div class="mini">This removes “structure unclear” marker complaint.</div>
+            <div class="taskMeta"><span class="tag check">Check</span></div>
+          </div>
+        </label>
+
+        <div class="row" style="margin-top:10px;">
+          <button class="btn ghost" type="button" data-mark-section="part1">Mark Part 1 done</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2) PART 2 -->
+    <section id="part2" data-section="part2">
+      <h2>2) Part 2 — Reflective analysis (single observation-feedback enquiry)</h2>
+      <p class="sub">Goal: trace feedback → your reasoning → what changed → evidence of impact → inclusive adaptation → limitations.</p>
+
+      <div class="notice warnbox">
+        <b>Guardrail:</b> if a paragraph isn’t tied to the one enquiry episode, cut it.
+      </div>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div class="card">
+          <h3>P2.1 Micro‑enquiry design</h3>
+
+          <label class="task" data-section="part2" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p2-design"/>
+            <div>
+              <div class="taskTitle">Write a 1‑paragraph enquiry design (observed lesson + implementation lesson/iteration)</div>
+              <div class="mini">State 2–3 data sources + ethics note (anonymised, no identifiable data).</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part2" data-type="evidence">
+            <input class="taskCheck" type="checkbox" data-id="p2-datasources"/>
+            <div>
+              <div class="taskTitle">Select evidence sources (2–3): observer notes, hinge results, exit ticket/work, pupil responses</div>
+              <div class="mini">Lean evidence beats vague narrative.</div>
+              <div class="taskMeta"><span class="tag evidence">Evidence</span></div>
+            </div>
+          </label>
+        </div>
+
+        <div class="card">
+          <h3>P2.2 Observation feedback (the trigger)</h3>
+
+          <label class="task" data-section="part2" data-type="evidence">
+            <input class="taskCheck" type="checkbox" data-id="p2-feedback"/>
+            <div>
+              <div class="taskTitle">Insert the key observation feedback line(s) you acted on</div>
+              <div class="mini">Keep it narrow and questioning-related (checks for understanding; probing; equity of voice).</div>
+              <div class="taskMeta"><span class="tag evidence">Evidence</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part2" data-type="reuse">
+            <input class="taskCheck" type="checkbox" data-id="p2-reuse-feedback"/>
+            <div>
+              <div class="taskTitle">Reuse: any existing text about feedback on pace/talk—reframe as a questioning problem</div>
+              <div class="mini">Example: “pace reduced opportunities to check understanding and probe reasoning.”</div>
+              <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div class="card">
+          <h3>P2.3 Decision‑making (tie back to Part 1)</h3>
+
+          <label class="task" data-section="part2" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p2-reasoning"/>
+            <div>
+              <div class="taskTitle">Write: observed issue → Part 1 principle selected → planned questioning change</div>
+              <div class="mini">Name the principle(s) explicitly (“This addresses principle 2…”).</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part2" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p2-plan"/>
+            <div>
+              <div class="taskTitle">Plan the questioning changes: hinge + probing + participation routine + metacognitive prompt</div>
+              <div class="mini">Be concrete: what you asked, when, and what you did with responses.</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+        </div>
+
+        <div class="card">
+          <h3>P2.4 Implementation (only what changed)</h3>
+
+          <label class="task" data-section="part2" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p2-impl"/>
+            <div>
+              <div class="taskTitle">Describe where the hinge question sat and what misconception it targeted</div>
+              <div class="mini">Also: how you collected responses and how you responded.</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part2" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p2-probing"/>
+            <div>
+              <div class="taskTitle">Write your probing sequence (answer → why → what-if / counterexample)</div>
+              <div class="mini">Aim: reasoning over guessing.</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div class="card">
+          <h3>P2.5 Evidence of impact (marks are won here)</h3>
+
+          <label class="task" data-section="part2" data-type="evidence">
+            <input class="taskCheck" type="checkbox" data-id="p2-impactdata"/>
+            <div>
+              <div class="taskTitle">Collect 2–3 evidence points (hinge results, sample answers, exit ticket/work)</div>
+              <div class="mini">Small is fine if it’s specific and interpreted.</div>
+              <div class="taskMeta"><span class="tag evidence">Evidence</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part2" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p2-claims"/>
+            <div>
+              <div class="taskTitle">Write 2–3 “claim → evidence → interpretation (linked to literature)” paragraphs</div>
+              <div class="mini">Make learning the dependent variable.</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part2" data-type="reuse">
+            <input class="taskCheck" type="checkbox" data-id="p2-reuse-checkins"/>
+            <div>
+              <div class="taskTitle">Reuse: “regular check-ins / misconceptions / feedback” wording, but attach it to your evidence</div>
+              <div class="mini">Avoid generic claims—anchor to the hinge results.</div>
+              <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+            </div>
+          </label>
+
+        </div>
+
+        <div class="card">
+          <h3>P2.6 Adaptive + inclusive teaching (auditable)</h3>
+
+          <label class="task" data-section="part2" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p2-adapt"/>
+            <div>
+              <div class="taskTitle">Write 2–3 micro-patterns: need noticed → adaptation → who benefited → evidence</div>
+              <div class="mini">Rephrase, stems, vocab, wait time, supportive follow-up, etc.</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part2" data-type="reuse">
+            <input class="taskCheck" type="checkbox" data-id="p2-reuse-dignity"/>
+            <div>
+              <div class="taskTitle">Reuse: dignity/discreet support paragraph — rewrite as “adaptive questioning choices”</div>
+              <div class="mini">Make it specific: what question changed, for whom, and why.</div>
+              <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+            </div>
+          </label>
+
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h3>P2.7 Critical reflection + limitations</h3>
+
+        <label class="task" data-section="part2" data-type="check">
+          <input class="taskCheck" type="checkbox" data-id="p2-limits"/>
+          <div>
+            <div class="taskTitle">Write limitations + alternative explanations (one episode ≠ proof), then one iteration</div>
+            <div class="mini">Shows criticality, not failure.</div>
+            <div class="taskMeta"><span class="tag check">Check</span></div>
+          </div>
+        </label>
+
+        <label class="task" data-section="part2" data-type="check">
+          <input class="taskCheck" type="checkbox" data-id="p2-linkback"/>
+          <div>
+            <div class="taskTitle">Explicitly link back to Part 1 principles (don’t assume marker inference)</div>
+            <div class="mini">One sentence per principle is enough.</div>
+            <div class="taskMeta"><span class="tag check">Check</span></div>
+          </div>
+        </label>
+
+        <div class="row" style="margin-top:10px;">
+          <button class="btn ghost" type="button" data-mark-section="part2">Mark Part 2 done</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 3) PART 3 -->
+    <section id="part3" data-section="part3">
+      <h2>3) Part 3 — Summary, synthesis, and ongoing professional development</h2>
+      <p class="sub">Goal: synthesise Parts 1–2 (don’t repeat). State what you learned + what you’ll do next as concrete routines.</p>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div class="card">
+          <h3>P3.1 Synthesis (Part 1 ↔ Part 2)</h3>
+
+          <label class="task" data-section="part3" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p3-synth"/>
+            <div>
+              <div class="taskTitle">Write 4–6 bullets: principle → what happened → implication (in your context)</div>
+              <div class="mini">Include at least one “worked when…” / “limited by…” nuance.</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part3" data-type="reuse">
+            <input class="taskCheck" type="checkbox" data-id="p3-reuse-climate"/>
+            <div>
+              <div class="taskTitle">Reuse: climate → pupils risk uncertainty (as a condition for questioning)</div>
+              <div class="mini">Keep it as synthesis, not new content.</div>
+              <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+            </div>
+          </label>
+
+        </div>
+
+        <div class="card">
+          <h3>P3.2 CPD plan (concrete routines)</h3>
+
+          <label class="task" data-section="part3" data-type="write">
+            <input class="taskCheck" type="checkbox" data-id="p3-cpd"/>
+            <div>
+              <div class="taskTitle">Set 2–3 CPD priorities as routines (weekly hinge; probing practice; participation tracking)</div>
+              <div class="mini">Make them observable and repeatable.</div>
+              <div class="taskMeta"><span class="tag write">Write</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part3" data-type="reuse">
+            <input class="taskCheck" type="checkbox" data-id="p3-reuse-nextsteps"/>
+            <div>
+              <div class="taskTitle">Reuse: your “next steps” — convert into routines linked to questioning</div>
+              <div class="mini">Avoid vague goals; use planned habits.</div>
+              <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="part3" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="p3-noNew"/>
+            <div>
+              <div class="taskTitle">Check: no brand‑new literature appears only in Part 3</div>
+              <div class="mini">New sources belong earlier; Part 3 applies/synthesises.</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h3>P3.3 Anticipated challenges + mitigations</h3>
+
+        <label class="task" data-section="part3" data-type="write">
+          <input class="taskCheck" type="checkbox" data-id="p3-challenges"/>
+          <div>
+            <div class="taskTitle">Write 1 short paragraph: challenges (pace/time/anxiety) + mitigations (routines/norms)</div>
+            <div class="mini">Keep it realistic; shows professional judgement.</div>
+            <div class="taskMeta"><span class="tag write">Write</span></div>
+          </div>
+        </label>
+
+        <div class="row" style="margin-top:10px;">
+          <button class="btn ghost" type="button" data-mark-section="part3">Mark Part 3 done</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- EVIDENCE PACK -->
+    <section id="evidence" data-section="evidence">
+      <h2>Evidence pack</h2>
+      <p class="sub">Keep all episode-critical details in one place. If you get distracted, come back here.</p>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>1) Observation feedback (paste it)</h3>
+          <textarea id="evFeedback" placeholder="Paste the key feedback line(s) here…"></textarea>
+          <div class="mini">Aim: questioning-related, narrow, actionable.</div>
+          <label class="task" data-section="evidence" data-type="evidence" style="margin-top:10px;">
+            <input class="taskCheck" type="checkbox" data-id="ev-feedback"/>
+            <div>
+              <div class="taskTitle">Feedback captured and ready to quote/paraphrase in Part 2</div>
+              <div class="taskMeta"><span class="tag evidence">Evidence</span></div>
+            </div>
+          </label>
+        </div>
+
+        <div class="card">
+          <h3>2) Planned change (what you decided)</h3>
+          <textarea id="evPlan" placeholder="What did you change in questioning next lesson? (hinge, probing, participation, prompts, scaffolds)…"></textarea>
+          <label class="task" data-section="evidence" data-type="evidence" style="margin-top:10px;">
+            <input class="taskCheck" type="checkbox" data-id="ev-plan"/>
+            <div>
+              <div class="taskTitle">Planned questioning change recorded (ready to describe)</div>
+              <div class="taskMeta"><span class="tag evidence">Evidence</span></div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div class="card">
+          <h3>3) Impact evidence (2–3 points)</h3>
+          <textarea id="evImpact" placeholder="Hinge results, sample pupil answers (anonymised), exit ticket summary, work snippet notes…"></textarea>
+          <div class="mini">Write it in a way you can cite: “X pupils chose…”, “Common misconception was…”.</div>
+          <label class="task" data-section="evidence" data-type="evidence" style="margin-top:10px;">
+            <input class="taskCheck" type="checkbox" data-id="ev-impact"/>
+            <div>
+              <div class="taskTitle">Impact evidence captured (learning-focused, specific)</div>
+              <div class="taskMeta"><span class="tag evidence">Evidence</span></div>
+            </div>
+          </label>
+        </div>
+
+        <div class="card">
+          <h3>4) Inclusion/adaptation moments</h3>
+          <textarea id="evAdapt" placeholder="Need noticed → adaptation → who benefited → evidence (2–3 examples)…"></textarea>
+          <label class="task" data-section="evidence" data-type="evidence" style="margin-top:10px;">
+            <input class="taskCheck" type="checkbox" data-id="ev-adapt"/>
+            <div>
+              <div class="taskTitle">Adaptive/inclusive moments captured (auditable)</div>
+              <div class="taskMeta"><span class="tag evidence">Evidence</span></div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <button class="btn ghost" type="button" data-mark-section="evidence">Mark evidence pack done</button>
+      </div>
+    </section>
+
+    <!-- REUSE MAP -->
+    <section id="reuse" data-section="reuse">
+      <h2>Reuse map (from your previous attempt)</h2>
+      <p class="sub">Highest-value copy‑and‑reshape pieces to save time. Convert “climate” into a condition for questioning, and pin everything to your one enquiry episode.</p>
+
+      <div class="card">
+        <h3>High-value reuse items</h3>
+
+        <label class="task" data-section="reuse" data-type="reuse">
+          <input class="taskCheck" type="checkbox" data-id="rm-1"/>
+          <div>
+            <div class="taskTitle">Teach–check cycles / regular check-ins → Part 1.1–1.2 + Part 2.5</div>
+            <div class="mini">Make it about questioning as evidence elicitation, then attach it to hinge evidence.</div>
+            <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+          </div>
+        </label>
+
+        <label class="task" data-section="reuse" data-type="reuse">
+          <input class="taskCheck" type="checkbox" data-id="rm-2"/>
+          <div>
+            <div class="taskTitle">Metacognition via questioning; hinge mention → Part 1.3 + Part 2.4–2.5</div>
+            <div class="mini">Rewrite topic sentence so it’s explicitly about question prompts and diagnostic checks.</div>
+            <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+          </div>
+        </label>
+
+        <label class="task" data-section="reuse" data-type="reuse">
+          <input class="taskCheck" type="checkbox" data-id="rm-3"/>
+          <div>
+            <div class="taskTitle">Inclusion/equity + targeted questioning → Part 1.4 + Part 2.6</div>
+            <div class="mini">Convert into 2–3 “need → adaptation → evidence” micro-patterns.</div>
+            <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+          </div>
+        </label>
+
+        <label class="task" data-section="reuse" data-type="reuse">
+          <input class="taskCheck" type="checkbox" data-id="rm-4"/>
+          <div>
+            <div class="taskTitle">Climate / psychological safety → Part 1.2/1.5 + Part 3 synthesis</div>
+            <div class="mini">Keep it short; it’s a condition, not the pedagogy.</div>
+            <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+          </div>
+        </label>
+
+        <label class="task" data-section="reuse" data-type="reuse">
+          <input class="taskCheck" type="checkbox" data-id="rm-5"/>
+          <div>
+            <div class="taskTitle">Next steps → Part 3 CPD routines</div>
+            <div class="mini">Rewrite as repeatable routines (weekly hinge; probing practice; participation tracking).</div>
+            <div class="taskMeta"><span class="tag reuse">Reuse</span></div>
+          </div>
+        </label>
+
+        <div class="row" style="margin-top:10px;">
+          <button class="btn ghost" type="button" data-mark-section="reuse">Mark reuse map done</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- QC -->
+    <section id="qc" data-section="qc">
+      <h2>Final checks (pre-submit)</h2>
+      <p class="sub">Fast checklist to prevent structural fails.</p>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Structure + evidence</h3>
+
+          <label class="task" data-section="qc" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="qc-1"/>
+            <div>
+              <div class="taskTitle">Parts 1–3 are clearly labelled and in the required order</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="qc" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="qc-2"/>
+            <div>
+              <div class="taskTitle">Part 2 includes enquiry design + data sources + ethics note</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="qc" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="qc-3"/>
+            <div>
+              <div class="taskTitle">Impact claims are learning-focused and evidenced (not just engagement)</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="qc" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="qc-4"/>
+            <div>
+              <div class="taskTitle">Adaptive/inclusive teaching is explicit and evidenced (2–3 examples)</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+        </div>
+
+        <div class="card">
+          <h3>Academic quality</h3>
+
+          <label class="task" data-section="qc" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="qc-5"/>
+            <div>
+              <div class="taskTitle">Literature is sustained throughout Parts 1–3 (≥1 citation per paragraph)</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="qc" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="qc-6"/>
+            <div>
+              <div class="taskTitle">Part 3 synthesises Parts 1–2 (no new sources introduced only at the end)</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="qc" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="qc-7"/>
+            <div>
+              <div class="taskTitle">Limitations + implications are stated clearly</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+          <label class="task" data-section="qc" data-type="check">
+            <input class="taskCheck" type="checkbox" data-id="qc-8"/>
+            <div>
+              <div class="taskTitle">CPD actions are concrete routines (observable, repeatable)</div>
+              <div class="taskMeta"><span class="tag check">Check</span></div>
+            </div>
+          </label>
+
+          <div class="row" style="margin-top:10px;">
+            <button class="btn ghost" type="button" data-mark-section="qc">Mark final checks done</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARKING LOT -->
+    <section id="parking" data-section="parking">
+      <h2>Parking lot (to stop derailments)</h2>
+      <p class="sub">When a distracting thought appears, drop it here and return to the checkbox you were doing.</p>
+      <textarea id="parkingBox" placeholder="Parking lot… (e.g., 'find that paper later', 'email mentor', 'check policy wording')"></textarea>
+      <div class="mini">Saved locally. Shortcut: <span class="kbd">N</span> jumps to the next visible unchecked task (when not typing).</div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const LS_KEY = 'scitt_m1_worksheet_v1';
+  const LS_TEXT_KEY = 'scitt_m1_worksheet_text_v1';
+
+  const el = (sel, root=document) => root.querySelector(sel);
+  const els = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+  el('#printBtn').addEventListener('click', () => window.print());
+
+  const taskChecks = els('.taskCheck');
+  const taskElems  = els('.task');
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(LS_KEY);
+      const state = raw ? JSON.parse(raw) : {};
+      taskChecks.forEach(cb => cb.checked = !!state[cb.dataset.id]);
+    }catch(e){}
+
+    try{
+      const rawText = localStorage.getItem(LS_TEXT_KEY);
+      const textState = rawText ? JSON.parse(rawText) : {};
+      const fields = ['evFeedback','evPlan','evImpact','evAdapt','parkingBox'];
+      fields.forEach(id => {
+        const t = el('#'+id);
+        if(t && typeof textState[id] === 'string') t.value = textState[id];
+      });
+    }catch(e){}
+  }
+
+  function saveState(){
+    const state = {};
+    taskChecks.forEach(cb => state[cb.dataset.id] = cb.checked);
+    localStorage.setItem(LS_KEY, JSON.stringify(state));
+
+    const textState = {
+      evFeedback: el('#evFeedback')?.value || '',
+      evPlan: el('#evPlan')?.value || '',
+      evImpact: el('#evImpact')?.value || '',
+      evAdapt: el('#evAdapt')?.value || '',
+      parkingBox: el('#parkingBox')?.value || ''
+    };
+    localStorage.setItem(LS_TEXT_KEY, JSON.stringify(textState));
+  }
+
+  function setTaskStyles(){
+    taskElems.forEach(t => {
+      const cb = el('input.taskCheck', t);
+      t.classList.toggle('done', !!cb && cb.checked);
+    });
+  }
+
+  // Filters
+  let viewMode = 'all';
+  const enabledTypes = new Set(['write','reuse','lookup','evidence','check']);
+
+  function applyFilters(){
+    taskElems.forEach(t => {
+      const type = t.dataset.type;
+      const cb = el('input.taskCheck', t);
+      const isDone = cb ? cb.checked : false;
+      const typeOk = enabledTypes.has(type);
+      const viewOk = (viewMode === 'all') || (viewMode === 'remaining' && !isDone) || (viewMode === 'done' && isDone);
+      t.classList.toggle('hidden', !(typeOk && viewOk));
+    });
+  }
+
+  els('.filterBtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewMode = btn.dataset.view;
+      els('.filterBtn').forEach(b => b.classList.remove('secondary'));
+      btn.classList.add('secondary');
+      applyFilters();
+      updateNextTaskLabel();
+    });
+  });
+  (els('.filterBtn').find(b => b.dataset.view==='all') || null)?.classList.add('secondary');
+
+  els('.typeToggle').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const t = cb.dataset.type;
+      if(cb.checked) enabledTypes.add(t); else enabledTypes.delete(t);
+      applyFilters();
+      updateNextTaskLabel();
+    });
+  });
+
+  // Progress
+  const progressLabel = el('#progressLabel');
+  const progressBar = el('#progressBar');
+  const nextTaskLabel = el('#nextTaskLabel');
+
+  function sectionProgress(sectionId){
+    const tasks = taskElems.filter(t => t.dataset.section === sectionId);
+    const total = tasks.length;
+    const done = tasks.filter(t => el('input.taskCheck', t)?.checked).length;
+    const pct = total ? Math.round((done/total)*100) : 0;
+    return {total, done, pct};
+  }
+
+  function updateProgress(){
+    const total = taskChecks.length;
+    const done = taskChecks.filter(cb => cb.checked).length;
+    progressLabel.textContent = `${done} / ${total}`;
+    progressBar.style.width = total ? `${(done/total)*100}%` : '0%';
+
+    const sections = ['overview','part1','part2','part3','evidence','reuse','qc'];
+    sections.forEach(s => {
+      const {pct} = sectionProgress(s);
+      const b = el(`#b-${s}`);
+      if(!b) return;
+      b.textContent = `${pct}%`;
+      b.style.background = pct===100 ? 'rgba(80,250,123,.12)' : 'rgba(0,0,0,.20)';
+      b.style.borderColor = pct===100 ? 'rgba(80,250,123,.35)' : 'rgba(255,255,255,.10)';
+    });
+
+    setTaskStyles();
+    updateNextTaskLabel();
+  }
+
+  // Next task
+  function getNextTask(){
+    for(const t of taskElems){
+      if(t.classList.contains('hidden')) continue;
+      const cb = el('input.taskCheck', t);
+      if(cb && !cb.checked) return t;
+    }
+    return null;
+  }
+
+  function updateNextTaskLabel(){
+    const t = getNextTask();
+    if(!t){ nextTaskLabel.textContent = 'All done'; return; }
+    const title = el('.taskTitle', t)?.textContent?.trim() || 'Next';
+    nextTaskLabel.textContent = title.length > 28 ? title.slice(0,28) + '…' : title;
+  }
+
+  function focusTask(t){
+    if(!t) return;
+    t.classList.add('taskHighlight');
+    t.scrollIntoView({behavior:'smooth', block:'center'});
+    setTimeout(()=>t.classList.remove('taskHighlight'), 1400);
+  }
+
+  el('#nextTaskBtn').addEventListener('click', () => focusTask(getNextTask()));
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key.toLowerCase() === 'n' && !e.metaKey && !e.ctrlKey && !e.altKey){
+      const active = document.activeElement;
+      const typing = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA');
+      if(!typing){
+        e.preventDefault();
+        focusTask(getNextTask());
+      }
+    }
+  });
+
+  // Mark section complete
+  els('[data-mark-section]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sec = btn.dataset.markSection;
+      taskElems.filter(t => t.dataset.section === sec).forEach(t => {
+        const cb = el('input.taskCheck', t);
+        if(cb) cb.checked = true;
+      });
+      saveState();
+      updateProgress();
+      applyFilters();
+    });
+  });
+
+  // Save on change
+  taskChecks.forEach(cb => cb.addEventListener('change', () => { saveState(); updateProgress(); applyFilters(); }));
+  ['evFeedback','evPlan','evImpact','evAdapt','parkingBox'].forEach(id => el('#'+id)?.addEventListener('input', saveState));
+
+  // Export / Import
+  const transferBox = el('#transferBox');
+  el('#exportBtn').addEventListener('click', () => {
+    const state = {};
+    taskChecks.forEach(cb => state[cb.dataset.id] = cb.checked);
+    const textState = {
+      evFeedback: el('#evFeedback')?.value || '',
+      evPlan: el('#evPlan')?.value || '',
+      evImpact: el('#evImpact')?.value || '',
+      evAdapt: el('#evAdapt')?.value || '',
+      parkingBox: el('#parkingBox')?.value || ''
+    };
+    transferBox.value = JSON.stringify({state, textState}, null, 2);
+  });
+
+  el('#importBtn').addEventListener('click', () => {
+    try{
+      const parsed = JSON.parse(transferBox.value);
+      if(parsed?.state){ taskChecks.forEach(cb => cb.checked = !!parsed.state[cb.dataset.id]); }
+      if(parsed?.textState){
+        el('#evFeedback').value = parsed.textState.evFeedback || '';
+        el('#evPlan').value = parsed.textState.evPlan || '';
+        el('#evImpact').value = parsed.textState.evImpact || '';
+        el('#evAdapt').value = parsed.textState.evAdapt || '';
+        el('#parkingBox').value = parsed.textState.parkingBox || '';
+      }
+      saveState();
+      updateProgress();
+      applyFilters();
+    }catch(err){
+      alert('Import failed: the box does not contain valid JSON.');
+    }
+  });
+
+  // Reset
+  el('#resetBtn').addEventListener('click', () => {
+    if(!confirm('Reset all checkboxes and notes on this device?')) return;
+    localStorage.removeItem(LS_KEY);
+    localStorage.removeItem(LS_TEXT_KEY);
+    taskChecks.forEach(cb => cb.checked = false);
+    ['evFeedback','evPlan','evImpact','evAdapt','parkingBox'].forEach(id => { const t = el('#'+id); if(t) t.value = ''; });
+    updateProgress();
+    applyFilters();
+  });
+
+  // Word helper
+  el('#calcWords').addEventListener('click', () => {
+    const total = Number(el('#totalWords').value || 0);
+    if(!total){
+      el('#wordTargets').textContent = 'Targets: Part 1 30–35%, Part 2 45–55%, Part 3 15–20%.';
+      return;
+    }
+    const p1a = Math.round(total*0.30), p1b = Math.round(total*0.35);
+    const p2a = Math.round(total*0.45), p2b = Math.round(total*0.55);
+    const p3a = Math.round(total*0.15), p3b = Math.round(total*0.20);
+    el('#wordTargets').textContent = `Targets (approx): Part 1 ${p1a}–${p1b}, Part 2 ${p2a}–${p2b}, Part 3 ${p3a}–${p3b} words.`;
+  });
+
+  function updateWordNow(){
+    const p1 = Number(el('#wPart1').value || 0);
+    const p2 = Number(el('#wPart2').value || 0);
+    const p3 = Number(el('#wPart3').value || 0);
+    const sum = p1+p2+p3;
+    el('#wordNow').textContent = sum ? `Current: Part 1 ${p1} | Part 2 ${p2} | Part 3 ${p3} (total ${sum}).` : '—';
+  }
+  ['wPart1','wPart2','wPart3'].forEach(id => el('#'+id)?.addEventListener('input', updateWordNow));
+
+  // Slide mode
+  const slideSections = els('main section');
+  const slideLinks = els('.nav a.item');
+  let currentSlide = 0;
+  let slideModeOn = true;
+
+  const prevSlideBtn = el('#prevSlide');
+  const nextSlideBtn = el('#nextSlide');
+  const slideCountEl = el('#slideCount');
+
+  function setActiveNavById(id){
+    slideLinks.forEach(a=>a.classList.remove('active'));
+    const match = slideLinks.find(a => a.getAttribute('href') === '#'+id);
+    if(match) match.classList.add('active');
+  }
+
+  function showSlide(n, scrollTop=true){
+    currentSlide = Math.max(0, Math.min(slideSections.length-1, n));
+    slideSections.forEach((sec,i)=> sec.classList.toggle('slideHidden', slideModeOn && i !== currentSlide));
+
+    const id = slideSections[currentSlide].id;
+    slideCountEl.textContent = `Slide ${currentSlide+1} / ${slideSections.length}`;
+    prevSlideBtn.disabled = (currentSlide === 0);
+    nextSlideBtn.disabled = (currentSlide === slideSections.length-1);
+
+    setActiveNavById(id);
+    if(scrollTop){
+      el('#slideNav')?.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+
+  function setSlideMode(on){
+    slideModeOn = on;
+    el('#toggleSlideBtn').textContent = `Slide mode: ${on ? 'On' : 'Off'}`;
+    showSlide(currentSlide, false);
+  }
+
+  el('#toggleSlideBtn').addEventListener('click', () => setSlideMode(!slideModeOn));
+  prevSlideBtn.addEventListener('click', () => showSlide(currentSlide-1));
+  nextSlideBtn.addEventListener('click', () => showSlide(currentSlide+1));
+
+  slideLinks.forEach(a => {
+    a.addEventListener('click', () => {
+      const href = a.getAttribute('href');
+      const id = href?.startsWith('#') ? href.slice(1) : null;
+      const idx = slideSections.findIndex(s => s.id === id);
+      if(idx >= 0){ showSlide(idx, false); }
+      setActiveNavById(id);
+    });
+  });
+
+  // Timer
+  let timer = null;
+  let remainingSec = 25*60;
+  const fmt = (sec) => {
+    const m = Math.floor(sec/60);
+    const s = sec%60;
+    return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  };
+  const setTimerOut = () => el('#timerOut').textContent = fmt(remainingSec);
+  const resetTimerToInput = () => {
+    const mins = Math.max(1, Number(el('#timerMins').value || 25));
+    remainingSec = mins*60;
+    setTimerOut();
+  };
+  el('#timerMins').addEventListener('change', resetTimerToInput);
+
+  function tick(){
+    remainingSec = Math.max(0, remainingSec-1);
+    setTimerOut();
+    if(remainingSec === 0){
+      clearInterval(timer);
+      timer = null;
+      el('#timerHint').textContent = 'Sprint finished. Take a 2–5 min break, then press Next task.';
+    }
+  }
+
+  el('#timerStart').addEventListener('click', () => {
+    if(timer) return;
+    el('#timerHint').textContent = 'Focus: finish one checkbox before you switch.';
+    timer = setInterval(tick, 1000);
+  });
+  el('#timerPause').addEventListener('click', () => {
+    if(timer){
+      clearInterval(timer);
+      timer = null;
+      el('#timerHint').textContent = 'Paused.';
+    }
+  });
+  el('#timerReset').addEventListener('click', () => {
+    if(timer){ clearInterval(timer); timer=null; }
+    resetTimerToInput();
+    el('#timerHint').textContent = 'Pick a single checkbox and finish it.';
+  });
+
+  // Init
+  loadState();
+  setTaskStyles();
+  applyFilters();
+  updateProgress();
+  resetTimerToInput();
+  setSlideMode(true);
+  showSlide(0, false);
+  updateWordNow();
+</script>
+</body>
+</html>
